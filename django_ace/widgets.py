@@ -10,7 +10,7 @@ from django.utils.safestring import mark_safe
 class AceWidget(forms.Textarea):
     def __init__(self, mode=None, theme=None, wordwrap=False, width="500px",
                  height="300px", minlines=None, maxlines=None,
-                 showprintmargin=True, notoolbar=False, *args, **kwargs):
+                 showprintmargin=True, toolbar=True, *args, **kwargs):
         self.mode = mode
         self.theme = theme
         self.wordwrap = wordwrap
@@ -19,7 +19,7 @@ class AceWidget(forms.Textarea):
         self.minlines = minlines
         self.maxlines = maxlines
         self.showprintmargin = showprintmargin
-        self.notoolbar = notoolbar
+        self.toolbar = toolbar
         super(AceWidget, self).__init__(*args, **kwargs)
 
     @property
@@ -60,7 +60,7 @@ class AceWidget(forms.Textarea):
 
         html = '<div%s><div></div></div>%s' % (flatatt(ace_attrs), textarea)
 
-        if not self.notoolbar:
+        if self.toolbar:
             # add toolbar
             html = '<div class="django-ace-editor"><div style="width: %s" class="django-ace-toolbar"><a href="./" class="django-ace-max_min"></a></div>%s</div>' % (self.width, html)
 
